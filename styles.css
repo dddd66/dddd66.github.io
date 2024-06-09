@@ -35,10 +35,10 @@ a:hover {
 
 form {
 	background: #fff;
-	padding: 20px;
+/*	padding: 20px;*/
 	border: 1px solid #6A5ACD;
 	margin: 20px auto; /* centering form  */
-	width: 50%; /* width = 50% of parent */
+	width: 100%; /* width = 50% of parent */
 }
 
 video, audio {
