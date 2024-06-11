@@ -1,11 +1,11 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template, send_from_directory
 import psycopg2
 from psycopg2.extras import RealDictCursor
 import json
 import os
 from dotenv import load_dotenv
 
-app = Flask(__name__)
+app = Flask(__name__,template_folder='.',static_folder='static/')
 
 # Load environment variables from .env file
 load_dotenv()
@@ -27,7 +27,11 @@ def get_db_connection():
     )
     return conn
 
-@app.route('/', methods=['GET'])
+@app.route('/',methods=['GET'])
+def index():
+    return render_template('index.html')
+
+@app.route('/get_data', methods=['GET'])
 def get_data():
     conn = get_db_connection()
     cursor = conn.cursor(cursor_factory=RealDictCursor)
