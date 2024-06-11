@@ -1,0 +1,5 @@
+# Windows line endings
+* text eol=crlf
+
+# Exclude specific files
+.sql -text
