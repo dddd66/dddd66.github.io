@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, render_template, send_from_directory
+from flask import Flask, jsonify, render_template, send_from_directory, request
 import psycopg2
 from psycopg2.extras import RealDictCursor
 import json
@@ -30,6 +30,22 @@ def get_db_connection():
 @app.route('/',methods=['GET'])
 def index():
     return render_template('index.html')
+
+@app.route('/submit-form', methods=['POST'])
+def handle_form():
+    name = request.form['name']
+    email = request.form['email']
+    message = request.form['message']
+    
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute('INSERT INTO contacts (name, email, message) VALUES (%s, %s, %s)', 
+                   (name, email, message))
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+    return jsonify({'status': 'success'})
 
 @app.route('/get_data', methods=['GET'])
 def get_data():
